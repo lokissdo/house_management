@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:id="@+id/ih_img"
+            android:layout_width="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/not_found"
+            android:layout_height="80dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="100dp">
+                <TextView
+                    android:id="@+id/ih_owner_name"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Tên chủ hộ"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/colorMediumBlack"
+                    android:layout_height="wrap_content"
+                    />
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:layout_height="20dp">
+                        <TextView
+                            android:id="@+id/ih_id"
+                            android:width="0dp"
+                            android:layout_weight="3"
+                            android:layout_width="wrap_content"
+                            android:textAlignment="center"
+                            android:background="@drawable/btn_avaiable"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorGrey"
+                            android:text="Mã"
+                            android:layout_height="20dp"/>
+                        <TextView
+                            android:id="@+id/ih_map"
+                            android:width="0dp"
+                            android:layout_weight="3"
+                            android:layout_width="wrap_content"
+                            android:textAlignment="center"
+                            android:background="#007118"
+                            android:textStyle="bold"
+                            android:textColor="@color/whiteTextColor"
+                            android:text="Chưa có địa chỉ"
+                            android:layout_height="20dp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="30dp"
+                            android:background="@drawable/rectangle_border">
+
+
+
+                                <TextView
+                                    android:id="@+id/ih_phone_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorMediumBlack"
+                                    android:textSize="18sp"
+                                    android:text="Chưa có sđt"
+                                    android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/ih_full_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rectangle_border"
+                            android:text="Full image"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/warningColor"
+                            android:textSize="13sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/ih_edit_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button_background"
+                    android:text="Edit"
+                    android:textSize="13sp"
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteTextColor"
+                    />
+        </LinearLayout>
+
+</LinearLayout>
