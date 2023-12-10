@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "latitude REAL DEFAULT NULL, " +
                     "longitude REAL DEFAULT NULL, " +
                     "phone_number TEXT DEFAULT NULL)");
-            new BatchInsertTask(context, db).execute();
+//            new BatchInsertTask(context, db).execute();
 
         }
 
@@ -182,4 +182,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return filteredList;
     }
 
+    public List<HouseModel> filterHousesWithoutPhoneNumber() {
+        List<HouseModel> filteredList = new ArrayList<>();
+        List<HouseModel> houseList = getHousesList();
+
+        for (HouseModel house : houseList) {
+            // Implement your own logic for filtering based on your requirements
+            if (house.phoneNumber == null)
+                filteredList.add(house);
+        }
+
+        return filteredList;
+    }
+
+    public List<HouseModel> filterHousesWithoutAddress() {
+        List<HouseModel> filteredList = new ArrayList<>();
+        List<HouseModel> houseList = getHousesList();
+
+        for (HouseModel house : houseList) {
+            // Implement your own logic for filtering based on your requirements
+            if (house.latitude == 0 && house.longitude == 0)
+                filteredList.add(house);
+        }
+
+        return filteredList;
+    }
+
+    public List<HouseModel> filterHousesWithoutImages() {
+        List<HouseModel> filteredList = new ArrayList<>();
+        List<HouseModel> houseList = getHousesList();
+
+        for (HouseModel house : houseList) {
+            // Implement your own logic for filtering based on your requirements
+            if (house.imagePath == null)
+                filteredList.add(house);
+        }
+
+        return filteredList;
+    }
+
+    public List<HouseModel> filterHousesWithoutFull() {
+        List<HouseModel> filteredList = new ArrayList<>();
+        List<HouseModel> houseList = getHousesList();
+
+        for (HouseModel house : houseList) {
+            // Implement your own logic for filtering based on your requirements
+            if (house.imagePath != null && house.longitude !=0 && house.latitude != 0 && house.phoneNumber != null)
+                filteredList.add(house);
+        }
+
+        return filteredList;
+    }
 }

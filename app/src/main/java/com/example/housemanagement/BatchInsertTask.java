@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,8 +29,9 @@ public class BatchInsertTask extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... voids) {
         try {
             // Read CSV file from assets
-            InputStream inputStream = context.getAssets().open("data.csv");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            File internalFile = new File(context.getFilesDir(), "data.csv");
+            FileInputStream fileInputStream = new FileInputStream(internalFile);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             // Skip the header line
@@ -39,7 +42,7 @@ public class BatchInsertTask extends AsyncTask<Void, Void, Void> {
             while ((line = bufferedReader.readLine()) != null) {
                 Log.d("line",line );
                 String[] parts = line.split(",");
-                if (parts.length == 2) {
+                if (parts.length >= 2) {
                     String id = parts[0];
                     String name = parts[1];
 
@@ -67,8 +70,7 @@ public class BatchInsertTask extends AsyncTask<Void, Void, Void> {
             // Close the streams
             bufferedReader.close();
             inputStreamReader.close();
-            inputStream.close();
-
+            fileInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

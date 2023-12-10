@@ -18,20 +18,54 @@
         android:iconifiedByDefault="false"
         android:background="@drawable/rectangle_border" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:id="@+id/btns"
+    android:layout_below="@id/buttonSearch"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/import_data"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="Import new Data" />
+
     <Button
         android:id="@+id/export_data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="10sp"
+        android:text="Export to CSV" />
+
+    <!-- Add this Spinner in your RelativeLayout -->
+    <Button
+        android:id="@+id/download_images"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+        android:text="Download Images"
+        android:textSize="10sp" />
+</LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinnerFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonSearch"
-        android:layout_marginLeft="-110dp"
-        android:layout_marginTop="-20dp"
-        android:textSize="10sp"
-        android:layout_toRightOf="@id/buttonSearch"
-        android:text="Export to CSV" />
+        android:layout_below="@id/btns"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_item"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_below="@id/export_data"
+        android:layout_below="@id/spinnerFilter"
         android:layout_height="wrap_content"/>
 </RelativeLayout>

@@ -5,12 +5,14 @@ import static androidx.activity.result.ActivityResultCallerKt.registerForActivit
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,7 +56,7 @@ public class ImageCaptureHelper {
                 // -1 is OK
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     // The activity was successful
-
+                    Log.d("a","here");
                     Intent data = result.getData();
 
                     //int position = Integer.parseInt(data.getStringExtra("position"));
@@ -162,5 +165,80 @@ public class ImageCaptureHelper {
     private File createInternalStorageFile(String fileName) {
         File internalStorageDir = activity.getFilesDir();
         return new File(internalStorageDir, fileName);
+    }
+
+
+    public void downloadImagesToPublicDirectoryWithConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you want to download all images to the public directory?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                downloadImagesToPublicDirectory();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing, user canceled the operation
+            }
+        });
+
+        builder.show();
+    }
+    public void downloadImagesToPublicDirectory() {
+        File internalStorageDir = activity.getFilesDir();
+
+        // Get the list of files in the internal storage directory
+        File[] files = internalStorageDir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                // Check if the file is an image (you can customize this check based on your file naming convention)
+                if (file.isFile() && file.getName().toLowerCase().endsWith(".jpg")) {
+                    copyFileToPublicDirectory(file);
+                }
+            }
+
+            // Notify the user that images have been downloaded
+            Toast.makeText(activity, "Images downloaded to public directory", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void copyFileToPublicDirectory(File sourceFile) {
+        try {
+            // Open an InputStream for the source file
+            InputStream inputStream = new FileInputStream(sourceFile);
+
+            // Create a destination directory in the public directory
+            File publicDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "HouseData");
+
+            // Create the directory if it doesn't exist
+            if (!publicDirectory.exists()) {
+                publicDirectory.mkdirs();
+            }
+
+            // Create a destination file within the directory
+            File destinationFile = new File(publicDirectory, sourceFile.getName());
+
+            // Open an OutputStream for the destination file
+            OutputStream outputStream = new FileOutputStream(destinationFile);
+
+            // Copy the data from InputStream to OutputStream
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            // Close the streams
+            inputStream.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

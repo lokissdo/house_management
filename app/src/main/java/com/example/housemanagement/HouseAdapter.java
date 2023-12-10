@@ -60,6 +60,7 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         holder.ownerNameTextView.setText(house.name);
         if (house.phoneNumber != null)
             holder.phoneNumberTextView.setText(house.phoneNumber);
+        else holder.phoneNumberTextView.setText("Chưa có sđt");
         if (house.imagePath != null) {
 
             holder.imageView.setImageURI(Uri.parse(house.imagePath));
@@ -76,6 +77,8 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         holder.editInfoView.setOnClickListener(view -> showEditDialog(house, position, holder));
         if (house.longitude != 0 && house.latitude != 0)
             holder.mapView.setText("Xem địa chỉ");
+        else holder.mapView.setText("Chưa có địa chỉ");
+
         holder.mapView.setOnClickListener(view -> {
             String uri = "http://maps.google.com/?" + house.longitude + "," + house.latitude;
             Uri locationUri = Uri.parse(uri);
